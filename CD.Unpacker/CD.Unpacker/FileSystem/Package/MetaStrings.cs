@@ -18,8 +18,6 @@ namespace CD.Unpacker
             {
                 var m_FoldersList = TMetaStream.ReadBytes(dwFoldersTableSize);
                 TFoldersStream = new MemoryStream(m_FoldersList);
-
-                //File.WriteAllBytes("0008_FOLDERS.dat", m_FoldersList);
             }
 
             Int32 dwNamesTableSize = TMetaStream.ReadInt32();
@@ -28,8 +26,6 @@ namespace CD.Unpacker
             {
                 var m_FileNamesList = TMetaStream.ReadBytes(dwNamesTableSize);
                 TFilesStream = new MemoryStream(m_FileNamesList);
-
-                //File.WriteAllBytes("0008_FILES.dat", m_FileNamesList);
             }
         }
 
