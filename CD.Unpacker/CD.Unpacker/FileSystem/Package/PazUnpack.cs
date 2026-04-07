@@ -19,7 +19,7 @@ namespace CD.Unpacker
                 m_Header.dwTotalArchives = TMetaStream.ReadInt32();
                 m_Header.dwMagic = TMetaStream.ReadUInt32();
 
-                if (m_Header.dwMagic != 0x610E0232)
+                if (m_Header.dwMagic != 0x610E0232 && m_Header.dwMagic != 0)
                 {
                     throw new Exception("[ERROR]: Invalid magic of META file!");
                 }
@@ -33,9 +33,9 @@ namespace CD.Unpacker
 
                 MetaStrings.iReadStringTables(TMetaStream);
 
-                m_FoldersTable.Clear();
                 m_Header.dwTotalFolders = TMetaStream.ReadInt32();
 
+                m_FoldersTable.Clear();
                 for (Int32 i = 0; i < m_Header.dwTotalFolders; i++)
                 {
                     var m_Folder = new MetaFolder();
@@ -49,8 +49,8 @@ namespace CD.Unpacker
                 }
 
                 m_Header.dwTotalFiles = TMetaStream.ReadInt32();
-                m_FilesTable.Clear();
 
+                m_FilesTable.Clear();
                 for (Int32 i = 0; i < m_Header.dwTotalFiles; i++)
                 {
                     var m_Entry = new MetaEntry();
