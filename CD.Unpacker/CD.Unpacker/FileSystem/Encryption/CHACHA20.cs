@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using System.Xml.Linq;
 
 namespace CD.Unpacker
 {
@@ -79,7 +78,7 @@ namespace CD.Unpacker
             m_BlockState[b] = ROL(XOR(m_BlockState[b], m_BlockState[c]), 7);
         }
 
-        public static Byte[] iDecryptBlocks(Byte[] lpBuffer, Int32 dwSize)
+        private static Byte[] iDecryptBlocks(Byte[] lpBuffer, Int32 dwSize)
         {
             Int32 dwOffset = 0;
             Int32 dwRemainedSize = 0;
@@ -148,7 +147,7 @@ namespace CD.Unpacker
             }
         }
 
-        private static void iGenerateNonce(String m_FileName, UInt32 dwHash)
+        private static void iGenerateNonce(UInt32 dwHash)
         {
             for (Int32 i = 0; i < m_Nonce.Length; i++)
             {
@@ -161,7 +160,7 @@ namespace CD.Unpacker
             UInt32 dwHash = Lookup3.iGetStringHash32(Path.GetFileName(m_FileName), Encoding.UTF8);
 
             iGenerateKey(dwHash);
-            iGenerateNonce(m_FileName, dwHash);
+            iGenerateNonce(dwHash);
 
             lpBuffer = iDecryptBlocks(lpBuffer, lpBuffer.Length);
 
